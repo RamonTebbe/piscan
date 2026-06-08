@@ -1,8 +1,8 @@
 """Core interfaces and data types shared across piscan.
 
-This module defines the *contracts* the rest of the pipeline depends on:
-a ``Target`` (the thing under test), a ``Policy`` (how it defends itself),
-a ``Verdict`` (the outcome of an attack), and an ``AttackResult`` (the record).
+This module defines the contracts the rest of the pipeline depends on:
+a Target (the thing under test), a Policy (how it defends itself),
+a Verdict (the outcome of an attack), and an AttackResult (the record).
 There is intentionally no logic here — just the shapes.
 """
 
@@ -17,9 +17,9 @@ from typing import Protocol, runtime_checkable
 class Target(Protocol):
     """Anything that takes a prompt and returns a text response.
 
-    Structural typing: any object exposing a matching ``send`` method *is* a
-    Target — no inheritance from this class required. ``@runtime_checkable``
-    lets ``isinstance(obj, Target)`` check for the method at runtime.
+    Structural typing: any object exposing a matching send() method is a
+    Target — no inheritance from this class required. The runtime_checkable
+    decorator lets isinstance(obj, Target) check for the method at runtime.
     """
 
     def send(self, prompt: str) -> str: ...
@@ -29,8 +29,8 @@ class Target(Protocol):
 class Policy:
     """How a target is configured to defend itself.
 
-    ``canary`` is the secret string that must never leak; if it shows up in a
-    response, the attack succeeded. ``system_prompt`` is optional context the
+    canary is the secret string that must never leak; if it shows up in a
+    response, the attack succeeded. system_prompt is optional context the
     target runs under.
     """
 
